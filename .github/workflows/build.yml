@@ -1,3 +1,4 @@
+#workflow
 name: Build Windows EXE
 
 on:
