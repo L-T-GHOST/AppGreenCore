@@ -1,4 +1,3 @@
-#workflow
 name: Build Windows EXE
 
 on:
@@ -14,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
@@ -28,7 +27,7 @@ jobs:
         run: flutter build windows
 
       - name: Upload EXE
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: datacenter-simulator
           path: build/windows/x64/runner/Release
