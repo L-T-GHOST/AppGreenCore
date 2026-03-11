@@ -1,0 +1,31 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Windows executable
+        run: flutter build windows
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v3
+        with:
+          name: datacenter-simulator
+          path: build/windows/x64/runner/Release
