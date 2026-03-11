@@ -1,9 +1,9 @@
 name: Build Windows EXE
 
 on:
-  push:
-    branches: [ main, master ]
   workflow_dispatch:
+  push:
+    branches: [main]
 
 jobs:
   build:
@@ -12,11 +12,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup Flutter
+      - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
+          channel: stable
 
       - name: Enable Windows Desktop
         run: flutter config --enable-windows-desktop
@@ -24,11 +26,11 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Build Windows App
+      - name: Build Windows
         run: flutter build windows
 
-      - name: Upload Windows Build
+      - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
-          name: windows-build
+          name: datacenter-simulator
           path: build/windows/x64/runner/Release
